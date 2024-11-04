@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button{
+            height: 2rem;
+            width: 4rem;
+            margin: 10px;
+            width: 100px;
+            height: 40px;
+            font-size: 25px;
+        }
+        button:hover{
+            box-shadow: 2px gray;
+            background-color: rgb(144, 144, 255);
+            cursor: pointer;
+            
+        }
+        body{
+            display: flex;
+            /* justify-content: center; */
+            align-items: center;
+            flex-direction: column;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #showhex{
+            background-color: white;
+            color: black;
+            /* padding: 10px 25px; */
+            margin: 15px 25px;
+            font-size: 30px;
+            border: 2px solid;
+            width: 150px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Start or stop the background color generator</h1>
+    <button id="start">Start</button>
+    <button id="stopp">Stop</button>
+    <div id="showhex"></div>
+    <div id="showmsg"></div>
+    
+</body>
+<script>
+    const start = document.getElementById("start")
+    const stopp = document.getElementById("stopp")
+    const showhex = document.querySelector("#showhex");
+    const showmsg = document.querySelector("#showmsg");
+
+    const randomColor = () =>{
+        let hex = "0123456789ABCDEF";
+        let color = "#"    
+        for(let i=0;i<6;i++){
+            color += hex[Math.floor((Math.random())*16)]
+        }
+        return color 
+    }
+
+    const changeBG = () =>{
+        document.querySelector("body").style.backgroundColor = `${randomColor()}`
+        showhex.innerHTML = `${randomColor()}`;
+        showmsg.innerHTML = ""
+    }
+
+    let chagneColor
+    start.addEventListener('click', ()=>{
+        changeColor = setInterval(changeBG, 3000);
+        
+    })
+
+    stopp.addEventListener('click', ()=>{
+        clearInterval(changeColor)
+    })
+
+    const copyColor = () =>{
+        const color = showhex.textContent;
+        navigator.clipboard.writeText(color).then(()=>{
+            showmsg.innerHTML = "Color copied to clipboard"
+        })
+    }
+
+    showhex.addEventListener('click', copyColor)
+    
+
+
+
+</script>
+</html>
